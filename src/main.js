@@ -2,6 +2,7 @@ import QRCode from 'qrcode';
 import './style.css';
 import './brand.css';
 import './visibility.css';
+import './logo-svg.js';
 
 const app = document.querySelector('#app');
 app.innerHTML = `
