@@ -1,0 +1,7 @@
+/* Use the provided brand asset for the header mark. */
+.brand-mark {
+  background: #14203a url('/logo.png') center / 75% no-repeat;
+  font-size: 0;
+}
+
+.brand-mark small { display: none; }

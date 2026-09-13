@@ -1,102 +1,23 @@
 import QRCode from 'qrcode';
 import './style.css';
+import './brand.css';
 
 const app = document.querySelector('#app');
 app.innerHTML = `
-  <header class="topbar">
-    <a class="brand" href="/" aria-label="Platka QR home"><span class="brand-mark">⌁</span><span>platka<span class="brand-accent">.</span>qr</span></a>
-    <span class="privacy-pill"><span class="dot"></span> 100% client-side</span>
-  </header>
-  <main class="shell">
-    <section class="hero">
-      <p class="eyebrow">QR CODE GENERATOR</p>
-      <h1>Bagikan apa saja.<br /><em>Scan di mana saja.</em></h1>
-      <p class="hero-copy">Buat QR code yang bersih dan siap digunakan dalam hitungan detik. Data Anda tidak pernah meninggalkan browser.</p>
-    </section>
+<header class="site-header"><div class="header-inner"><a class="brand" href="#home"><span class="brand-mark">›<small>_</small></span><span>platka<span class="brand-dot">.</span>qr</span></a><nav class="main-nav"><a class="nav-link active" href="#home">⌂&nbsp; Home</a><a class="nav-link" href="#history">▤&nbsp; History</a><a class="nav-link" href="#about">ⓘ&nbsp; About</a><a class="nav-link" href="#help">?&nbsp; Help</a></nav><div class="privacy-pill"><i></i>100% Client-side</div></div></header>
+<main id="home"><section class="hero section-width"><div class="hero-copy-wrap"><p class="eyebrow">◉ &nbsp; QR CODE GENERATOR</p><h1>Share anything.<br><span>Scan anywhere.</span></h1><p class="hero-copy">Create a clean QR code ready to use in seconds.<br class="desktop-only"> Your data never leaves your browser.</p><div class="hero-badges"><span><b>✓</b>Fast &amp; Easy</span><span><b>✓</b>100% Client-side</span><span><b>✓</b>No Sign-up</span></div></div><div class="hero-art"><div class="art-cloud cloud-one"></div><div class="art-cloud cloud-two"></div><div class="art-chip chip-link">↗</div><div class="art-chip chip-globe">◎</div><div class="art-chip chip-doc">▤</div><div class="art-paper"><div class="corner a"></div><div class="corner b"></div><div class="corner c"></div><div class="corner d"></div><div class="fake-qr">${'<i></i>'.repeat(49)}</div></div><div class="art-note">QR Code<br>for every<br>need <span>↗</span></div></div></section>
+<section class="workspace section-width"><div class="panel controls-panel"><div class="panel-heading"><div class="step-title"><span class="step-number">1</span><div><p class="section-kicker">CONTENT</p><h2>QR code content</h2></div></div><span class="live-badge">◉ &nbsp; LIVE PREVIEW</span></div><label class="field-label" for="content">↗ &nbsp; Text or URL</label><div class="textarea-wrap"><textarea id="content" rows="3" maxlength="2000" placeholder="https://example.com or write your message here...">https://platka.dev</textarea><span id="char-count">14/2000</span></div><div class="field-row"><div><label class="field-label" for="size">⌗ &nbsp; Size</label><select id="size"><option value="200">200 px</option><option value="400" selected>400 px</option><option value="600">600 px</option></select></div><div><label class="field-label" for="error">♢ &nbsp; Error correction</label><select id="error"><option value="L">L · 7%</option><option value="M" selected>M · 15%</option><option value="Q">Q · 25%</option><option value="H">H · 30%</option></select></div></div><div class="style-heading"><span class="step-number">2</span><div><p class="section-kicker">STYLE</p><h2>Customize appearance</h2></div></div><div class="color-row"><label class="color-control selected"><span>♣ &nbsp; QR color</span><span class="color-picker"><input id="foreground" type="color" value="#101b32"><output id="foreground-value">#101B28</output></span></label><label class="color-control"><span>Background</span><span class="color-picker"><input id="background" type="color" value="#ffffff"><output id="background-value">#FFFFFF</output></span></label></div><label class="field-label logo-label" for="logo">Logo <span>(optional)</span></label><div class="upload-wrap"><input id="logo" type="file" accept="image/png,image/jpeg,image/webp"><label for="logo" class="upload-button"><b>＋</b><span id="logo-name">Add logo (PNG, JPG, WEBP)</span></label><button id="remove-logo" class="remove-logo" type="button" hidden>×</button></div><button id="generate" class="generate-button" type="button"><span>⌗</span> Generate QR <b>→</b></button><p id="status" class="status" role="status"></p></div>
+<div class="panel preview-panel"><div class="panel-heading"><div class="step-title"><span class="step-number">3</span><div><p class="section-kicker">RESULT</p><h2>QR preview</h2></div></div><div class="format-switch"><button class="format active" type="button">PNG</button><button class="format" type="button">SVG</button></div></div><div class="qr-stage"><div class="qr-frame"><canvas id="qr-canvas" aria-label="QR code preview"></canvas><div id="empty-state" class="empty-state"><span>⌁</span><p>Your QR code<br>will appear here</p></div></div></div><div class="preview-meta"><span>⌗</span><span id="meta-size">400 × 400 px</span><i></i><span>↗</span><span id="meta-type">URL / LINK</span><i></i><span>♢</span><span id="meta-error">M · 15%</span></div><div class="download-row"><button id="download-png" class="download-button primary" type="button" disabled>⇩ &nbsp; Download PNG <b>⌄</b></button><button id="download-svg" class="download-button" type="button" disabled>⇩ &nbsp; Download SVG</button></div><p class="hint">ⓘ &nbsp; Your file will download automatically when ready.</p></div></section>
+<section id="history" class="history-section section-width"><div class="history-card"><div class="history-heading"><span class="history-icon">⌁</span><div><h2>Recent QR codes</h2><p>Your recently created files will appear here.</p></div><a href="#history">View all &nbsp;→</a></div><div id="history-list" class="history-list"><p class="history-empty">Your QR history is stored temporarily in this browser.</p></div></div></section>
+<section id="about" class="legal-section section-width"><article><p class="section-kicker">ABOUT PLATKA</p><h2>A fast, safe, and private QR generator.</h2><p>Platka QR is a free tool for creating QR codes directly in your browser. No data is sent to a server and no registration is required.</p><p>Platka QR is developed by <a href="https://platkadigital.com" target="_blank" rel="noreferrer">Platka Digital</a>.</p></article><article id="help"><p class="section-kicker">HELP</p><h2>Need help?</h2><p>For questions, suggestions, or issue reports, contact us by email or phone.</p><p><a href="mailto:platkasoftwaredigital@gmail.com">platkasoftwaredigital@gmail.com</a><br><a href="tel:+6281111102880">081111102880</a></p></article></section><section class="policy-section section-width"><article id="privacy"><p class="section-kicker">LEGAL</p><h2>Privacy Policy</h2><p>Content you enter and logos you upload are processed locally in your browser. We do not send, store, or sell that data. QR history is stored only in your device's <em>localStorage</em>.</p><p>The website may use anonymous technical data from its hosting provider to maintain security and performance.</p></article><article id="terms"><p class="section-kicker">LEGAL</p><h2>Terms &amp; Conditions</h2><p>Platka QR is provided as-is for lawful use. You are responsible for the content you enter and must ensure that its use does not violate any law or third-party rights.</p><p>By using this service, you agree to these terms.</p></article></section></main>
+<footer><div><a class="footer-brand" href="#home">platka<span>.qr</span></a><p>Built with privacy as the standard.</p></div><div class="footer-links"><a href="#privacy">Privacy Policy</a><a href="#terms">Terms &amp; Conditions</a><a href="mailto:platkasoftwaredigital@gmail.com">Contact</a></div><div class="footer-sites"><span>Official websites</span><a href="https://platkadigital.com" target="_blank" rel="noreferrer">platkadigital.com</a><a href="https://platka.io" target="_blank" rel="noreferrer">platka.io</a></div></footer>`;
 
-    <section class="workspace">
-      <div class="panel controls-panel">
-        <div class="panel-heading"><div><p class="section-kicker">01 / KONTEN</p><h2>Isi QR code</h2></div><span class="live-badge">LIVE PREVIEW</span></div>
-        <label class="field-label" for="content">Teks atau URL</label>
-        <textarea id="content" rows="4" placeholder="https://contoh.com atau tulis pesan Anda di sini...">https://platka.dev</textarea>
-        <div class="field-row three">
-          <div><label class="field-label" for="size">Ukuran</label><select id="size"><option value="200">200 px</option><option value="400" selected>400 px</option><option value="600">600 px</option></select></div>
-          <div><label class="field-label" for="error">Koreksi error</label><select id="error"><option value="L">L · 7%</option><option value="M" selected>M · 15%</option><option value="Q">Q · 25%</option><option value="H">H · 30%</option></select></div>
-        </div>
-
-        <div class="divider"></div>
-        <div class="panel-heading compact"><div><p class="section-kicker">02 / GAYA</p><h2>Sesuaikan tampilan</h2></div></div>
-        <div class="color-row">
-          <label class="color-control"><span>Warna QR</span><span class="color-picker"><input id="foreground" type="color" value="#101828" /><output id="foreground-value">#101828</output></span></label>
-          <label class="color-control"><span>Latar</span><span class="color-picker"><input id="background" type="color" value="#ffffff" /><output id="background-value">#FFFFFF</output></span></label>
-        </div>
-        <label class="field-label logo-label" for="logo">Logo tengah <span>opsional</span></label>
-        <div class="upload-wrap"><input id="logo" type="file" accept="image/png,image/jpeg,image/webp" /><label for="logo" class="upload-button"><span>＋</span><span id="logo-name">Tambah logo (PNG, JPG, WEBP)</span></label><button id="remove-logo" class="remove-logo" type="button" hidden>×</button></div>
-        <button id="generate" class="generate-button" type="button">Generate QR <span>→</span></button>
-        <p id="status" class="status" role="status"></p>
-      </div>
-
-      <div class="panel preview-panel">
-        <div class="panel-heading"><div><p class="section-kicker">03 / HASIL</p><h2>Preview QR</h2></div><span id="format-label" class="format-label">PNG · SVG</span></div>
-        <div class="qr-stage"><div class="qr-frame"><canvas id="qr-canvas" aria-label="Preview QR code"></canvas><div id="empty-state" class="empty-state"><span>⌁</span><p>QR code Anda<br />akan muncul di sini</p></div></div></div>
-        <div class="preview-meta"><span id="meta-size">400 × 400 px</span><span class="meta-separator">·</span><span id="meta-type">URL / TEXT</span></div>
-        <div class="download-row"><button id="download-png" class="download-button primary" type="button" disabled><span>↓</span> Download PNG</button><button id="download-svg" class="download-button" type="button" disabled><span>↓</span> Download SVG</button></div>
-        <p class="hint">Tip: gunakan level koreksi H jika QR akan dicetak bersama logo.</p>
-      </div>
-    </section>
-
-    <section class="history-section"><div class="history-title"><p class="section-kicker">RECENT</p><h2>QR terakhir</h2></div><div id="history" class="history-list"><p class="history-empty">QR yang Anda buat akan tersimpan sementara di browser ini.</p></div></section>
-  </main>
-  <footer><span>platka.qr</span><span>Dibuat dengan privasi sebagai standar.</span></footer>
-`;
-
-const $ = (id) => document.getElementById(id);
-let logoDataUrl = null;
-let lastSvg = '';
-let debounceTimer;
-
-function options() {
-  return { width: Number($('size').value), margin: 2, errorCorrectionLevel: $('error').value, color: { dark: $('foreground').value, light: $('background').value } };
-}
-
-function renderHistory() {
-  const history = JSON.parse(localStorage.getItem('platka-qr-history') || '[]');
-  const el = $('history');
-  if (!history.length) { el.innerHTML = '<p class="history-empty">QR yang Anda buat akan tersimpan sementara di browser ini.</p>'; return; }
-  el.innerHTML = history.map((item, i) => `<button class="history-item" data-history="${i}" title="Gunakan kembali"><span class="history-icon">⌁</span><span class="history-text">${escapeHtml(item.text)}</span><span class="history-arrow">↗</span></button>`).join('');
-  el.querySelectorAll('[data-history]').forEach((button) => button.addEventListener('click', () => { $('content').value = history[button.dataset.history].text; generate(); }));
-}
-
-function escapeHtml(value) { return value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char])); }
-
-async function generate() {
-  const text = $('content').value.trim();
-  const canvas = $('qr-canvas');
-  if (!text) { canvas.hidden = true; $('empty-state').hidden = false; $('download-png').disabled = true; $('download-svg').disabled = true; $('status').textContent = 'Masukkan teks atau URL terlebih dahulu.'; return; }
-  try {
-    const opts = options();
-    await QRCode.toCanvas(canvas, text, opts);
-    lastSvg = await QRCode.toString(text, { ...opts, type: 'svg' });
-    canvas.hidden = false; $('empty-state').hidden = true; $('download-png').disabled = false; $('download-svg').disabled = false;
-    $('meta-size').textContent = `${opts.width} × ${opts.width} px`;
-    $('meta-type').textContent = /^https?:\/\//i.test(text) ? 'URL / LINK' : 'TEXT';
-    $('status').textContent = 'QR berhasil diperbarui.';
-    const history = JSON.parse(localStorage.getItem('platka-qr-history') || '[]').filter((item) => item.text !== text);
-    history.unshift({ text }); localStorage.setItem('platka-qr-history', JSON.stringify(history.slice(0, 5))); renderHistory();
-    if (logoDataUrl) drawLogo(canvas, logoDataUrl);
-  } catch (error) { $('status').textContent = 'Konten terlalu panjang untuk ukuran QR ini.'; console.error(error); }
-}
-
-function drawLogo(canvas, src) {
-  const image = new Image(); image.onload = () => { const ctx = canvas.getContext('2d'); const box = canvas.width * 0.22; const x = (canvas.width - box) / 2; const y = x; ctx.fillStyle = $('background').value; ctx.fillRect(x - 8, y - 8, box + 16, box + 16); ctx.drawImage(image, x, y, box, box); }; image.src = src;
-}
-
-function download(name, href) { const anchor = document.createElement('a'); anchor.href = href; anchor.download = name; anchor.click(); }
-
-$('generate').addEventListener('click', generate);
-['content', 'size', 'error', 'foreground', 'background'].forEach((id) => $(id).addEventListener('input', () => { if (id === 'foreground' || id === 'background') { $(`${id}-value`).value = $(id).value.toUpperCase(); $(`${id}-value`).textContent = $(id).value.toUpperCase(); } clearTimeout(debounceTimer); debounceTimer = setTimeout(generate, id === 'content' ? 350 : 100); }));
-$('logo').addEventListener('change', (event) => { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { logoDataUrl = reader.result; $('logo-name').textContent = file.name; $('remove-logo').hidden = false; generate(); }; reader.readAsDataURL(file); });
-$('remove-logo').addEventListener('click', () => { logoDataUrl = null; $('logo').value = ''; $('logo-name').textContent = 'Tambah logo (PNG, JPG, WEBP)'; $('remove-logo').hidden = true; generate(); });
-$('download-png').addEventListener('click', () => download('platka-qr.png', $('qr-canvas').toDataURL('image/png')));
-$('download-svg').addEventListener('click', () => download('platka-qr.svg', `data:image/svg+xml;charset=utf-8,${encodeURIComponent(lastSvg)}`));
-renderHistory(); generate();
+const $=id=>document.getElementById(id);let logoDataUrl=null,lastSvg='',debounceTimer;
+function options(){return{width:Number($('size').value),margin:2,errorCorrectionLevel:$('error').value,color:{dark:$('foreground').value,light:$('background').value}}}
+function escapeHtml(v){return v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function updateCount(){$('char-count').textContent=`${$('content').value.length}/2000`}
+function renderHistory(){const h=JSON.parse(localStorage.getItem('platka-qr-history')||'[]'),el=$('history-list');if(!h.length){el.innerHTML='<p class="history-empty">Your QR history is stored temporarily in this browser.</p>';return}el.innerHTML=h.map((x,i)=>`<button class="history-item" data-history="${i}"><span class="history-item-icon">↗</span><span><strong>${escapeHtml(x.text)}</strong><small>${x.size||'400 × 400 px'} &nbsp;·&nbsp; ${x.error||'M · 15%'} &nbsp;·&nbsp; ${i+1} minute ago</small></span><span class="history-download">⇩</span></button>`).join('');el.querySelectorAll('[data-history]').forEach(b=>b.addEventListener('click',()=>{$('content').value=h[b.dataset.history].text;generate()}))}
+async function generate(){const text=$('content').value.trim();updateCount();const canvas=$('qr-canvas');if(!text){canvas.hidden=true;$('empty-state').hidden=false;$('download-png').disabled=true;$('download-svg').disabled=true;$('status').textContent='Enter text or a URL first.';return}try{const o=options();await QRCode.toCanvas(canvas,text,o);lastSvg=await QRCode.toString(text,{...o,type:'svg'});canvas.hidden=false;$('empty-state').hidden=true;$('download-png').disabled=false;$('download-svg').disabled=false;$('meta-size').textContent=`${o.width} × ${o.width} px`;$('meta-type').textContent=/^https?:\/\//i.test(text)?'URL / LINK':'TEXT';const pct={L:7,M:15,Q:25,H:30}[o.errorCorrectionLevel];$('meta-error').textContent=`${o.errorCorrectionLevel} · ${pct}%`;$('status').textContent='QR updated successfully.';const h=JSON.parse(localStorage.getItem('platka-qr-history')||'[]').filter(x=>x.text!==text);h.unshift({text,size:`${o.width} × ${o.width} px`,error:$('meta-error').textContent});localStorage.setItem('platka-qr-history',JSON.stringify(h.slice(0,5)));renderHistory();if(logoDataUrl)drawLogo(canvas,logoDataUrl)}catch(e){$('status').textContent='This content is too long for the selected QR size.';console.error(e)}}
+function drawLogo(canvas,src){const image=new Image();image.onload=()=>{const ctx=canvas.getContext('2d'),box=canvas.width*.22,x=(canvas.width-box)/2;ctx.fillStyle=$('background').value;ctx.fillRect(x-8,x-8,box+16,box+16);ctx.drawImage(image,x,x,box,box)};image.src=src}
+function download(name,href){const a=document.createElement('a');a.href=href;a.download=name;a.click()}
+$('generate').addEventListener('click',generate);['content','size','error','foreground','background'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='foreground'||id==='background')$(`${id}-value`).textContent=$(id).value.toUpperCase();clearTimeout(debounceTimer);debounceTimer=setTimeout(generate,id==='content'?350:100)}));$('logo').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{logoDataUrl=r.result;$('logo-name').textContent=f.name;$('remove-logo').hidden=false;generate()};r.readAsDataURL(f)});$('remove-logo').addEventListener('click',()=>{logoDataUrl=null;$('logo').value='';$('logo-name').textContent='Add logo (PNG, JPG, WEBP)';$('remove-logo').hidden=true;generate()});$('download-png').addEventListener('click',()=>download('platka-qr.png',$('qr-canvas').toDataURL('image/png')));$('download-svg').addEventListener('click',()=>download('platka-qr.svg',`data:image/svg+xml;charset=utf-8,${encodeURIComponent(lastSvg)}`));document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',()=>{document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));l.classList.add('active')}));renderHistory();generate();

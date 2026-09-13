@@ -1,42 +1,64 @@
-# platka-qr
+# platka-qrcode
 
-QR Code Generator static, client-side, dan siap untuk Cloudflare Pages. Semua pembuatan QR berlangsung di browser menggunakan package `qrcode`; tidak ada backend atau API eksternal.
+Platka QR is a static, client-side QR Code Generator ready for Cloudflare Pages. QR generation runs in the browser with the `qrcode` package. No backend or paid external API is required.
 
-## Jalankan lokal
+## Features
+
+- Generate QR codes from text or URLs
+- Live preview with 200, 400, or 600 px output sizes
+- Foreground and background color customization
+- L/M/Q/H error correction levels
+- Optional local logo overlay
+- PNG and SVG downloads
+- Browser-only QR history using `localStorage`
+- Responsive English UI
+- SEO metadata, Open Graph tags, structured data, `robots.txt`, and sitemap
+
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Buka URL yang ditampilkan Vite (biasanya `http://localhost:5173`). Untuk menguji hasil production:
+Open the Vite URL, usually `http://localhost:5173`. To test the production build:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Folder hasil deploy ada di `dist/`.
+The deployable output is generated in `dist/`.
 
-## Deploy ke Cloudflare Pages
+## Deploy to Cloudflare Pages
 
-### Opsi A — drag-and-drop
+### Option A - drag and drop
 
-1. Jalankan `npm run build`.
-2. Buka Cloudflare Dashboard → **Workers & Pages** → **Create application** → **Pages** → **Upload assets**.
-3. Beri nama project **`platka-qr`**.
-4. Drag folder `dist/` ke uploader, lalu deploy.
-5. Situs akan tersedia di `https://platka-qr.pages.dev` (jika nama masih tersedia).
+1. Run `npm run build`.
+2. Open Cloudflare Dashboard -> **Workers & Pages** -> **Create application** -> **Pages** -> **Upload assets**.
+3. Set the project name to **`platka-qrcode`**.
+4. Drag the `dist/` folder into the uploader and deploy.
+5. Your site will be available at `https://platka-qrcode.pages.dev`.
 
-### Opsi B — GitHub + CI/CD
+### Option B - GitHub CI/CD
 
-1. Push seluruh source project ini ke repository GitHub.
-2. Di Cloudflare Dashboard pilih **Create application → Pages → Connect to Git** lalu pilih repository.
-3. Isi konfigurasi berikut:
-   - **Project name:** `platka-qr`
+1. Push this project to your GitHub repository.
+2. In Cloudflare Dashboard choose **Create application -> Pages -> Connect to Git**.
+3. Select the repository and use:
+   - **Project name:** `platka-qrcode`
    - **Framework preset:** `Vite`
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-4. Simpan dan deploy. Setiap push ke branch production akan memicu build otomatis.
+4. Save and deploy. Future pushes to the production branch will trigger a new build.
 
-Tidak diperlukan `wrangler.toml` maupun Pages Functions untuk versi client-only ini.
+No Pages Functions, database, or `wrangler.toml` is required for this client-only version.
+
+## Contact and official websites
+
+- Email: `platkasoftwaredigital@gmail.com`
+- Phone: `081111102880`
+- Official websites: [platkadigital.com](https://platkadigital.com) and [platka.io](https://platka.io)
+
+## Legal
+
+The site includes an in-page Privacy Policy and Terms & Conditions section. QR content and uploaded logos are processed locally in the browser and are not sent to our server.
