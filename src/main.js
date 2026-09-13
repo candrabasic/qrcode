@@ -1,6 +1,7 @@
 import QRCode from 'qrcode';
 import './style.css';
 import './brand.css';
+import './visibility.css';
 
 const app = document.querySelector('#app');
 app.innerHTML = `

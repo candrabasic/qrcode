@@ -1,0 +1,4 @@
+/* Keep native hidden elements hidden even when a component has a display rule. */
+[hidden] {
+  display: none !important;
+}
