@@ -18,6 +18,9 @@ setTimeout(() => {
   fileInput.addEventListener('change', (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    // A logo covers QR modules, so use the strongest correction level by default.
+    const errorSelect = document.getElementById('error');
+    if (errorSelect) errorSelect.value = 'H';
     const reader = new FileReader();
     reader.onload = () => { uploadedLogo = reader.result; };
     reader.readAsDataURL(file);
